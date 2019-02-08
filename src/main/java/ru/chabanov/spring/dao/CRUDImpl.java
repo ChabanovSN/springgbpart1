@@ -2,6 +2,8 @@ package ru.chabanov.spring.dao;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.chabanov.spring.model.Ad;
 import ru.chabanov.spring.model.Category;
@@ -13,7 +15,8 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 
-@Component
+@Service("crud")
+@Repository
 @Transactional
 public class CRUDImpl implements CRUD {
 

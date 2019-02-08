@@ -67,8 +67,5 @@ public class AppConfig {
         return transactionManager;
     }
 
-    @Bean(name = "crud")
-    public CRUD crud(){
-        return new CRUDImpl();
-    }
+
 }
