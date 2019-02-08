@@ -23,16 +23,7 @@ public class CRUDImpl implements CRUD {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public Company findCompany(final Integer id) {
 
-        if (id <=0) return null;
-        List<Company> resultList = entityManager.createQuery("SELECT e FROM Company e WHERE e.id = :id", Company.class)
-                .setParameter("id", id)
-                .setMaxResults(1).getResultList();
-        if (resultList.isEmpty()) return null;
-        return resultList.get(0);
-
-    }
 
     @Override
     public void merge(Company company, Ad ad, Category category) {
@@ -59,4 +50,24 @@ public class CRUDImpl implements CRUD {
 
     }
 
+    @Override
+    public Category findCategory(Integer id) {
+        if (id <=0) return null;
+        List<Category> resultList = entityManager.createQuery("SELECT e FROM :t e WHERE e.id = :id", Category.class)
+                .setParameter("id", id)
+                .setMaxResults(1).getResultList();
+        if (resultList.isEmpty()) return null;
+        return resultList.get(0);
+    }
+
+    @Override
+    public Company findCompany(final Integer id) {
+        if (id <=0) return null;
+        List<Company> resultList = entityManager.createQuery("SELECT e FROM Company e left join fetch e.ads WHERE e.id = :id", Company.class)
+                .setParameter("id", id)
+                .setMaxResults(1).getResultList();
+        if (resultList.isEmpty()) return null;
+        return resultList.get(0);
+
+    }
 }

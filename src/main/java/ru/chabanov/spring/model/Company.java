@@ -12,6 +12,10 @@ import java.util.Set;
 @ToString
 @Entity
 @Table(name="app_company")
+@NamedQueries({
+        @NamedQuery(name="Company.findAll",query = "select e from Company e"),
+        @NamedQuery(name="Company.findById",query = "select distinct com from Company com left join fetch com.ads ")
+})
 public class Company {
 
     @Getter
@@ -35,6 +39,7 @@ public class Company {
     @Setter
     @Getter
     @OneToMany(mappedBy = "owner",fetch=FetchType.EAGER)
+    @Column(name = "ad")
     private Set<Ad> ads = new HashSet<>();
 
 }
