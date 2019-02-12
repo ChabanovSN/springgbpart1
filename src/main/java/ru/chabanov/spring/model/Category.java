@@ -3,32 +3,42 @@ package ru.chabanov.spring.model;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 
 import javax.persistence.*;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
-@ToString
+import static javax.persistence.FetchType.LAZY;
+
+
 @Entity
 @Table(name="app_category")
-public class Category {
+public class Category extends Common {
 
-    @ToString.Exclude
-    @Getter
-    @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Integer id;
 
     @Setter
     @Getter
-    @Column(name = "name_of_category")
-    private String name;
-
-    @ToString.Exclude
-    @Setter
-    @Getter
-    @ManyToMany(mappedBy = "categories",fetch=FetchType.EAGER)
+    @ManyToMany(mappedBy = "categories", fetch = LAZY,cascade = CascadeType.ALL)
     private Set<Ad> ads= new HashSet<>();
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "id=" + getId() +
+                ", name='" + getName() + '\'' +
+           //     ", ads=" + printSet(ads) +
+                '}';
+    }
+    private String printSet(Set<Ad> set){
+        StringBuilder setString = new StringBuilder();
+        setString.append("\n");
+        set.forEach(m -> setString.append(m).append("\n"));
+        return setString.toString();
+    }
 }

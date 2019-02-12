@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -17,7 +18,7 @@ import ru.chabanov.spring.dao.CRUDImpl;
 import javax.sql.DataSource;
 import java.util.Properties;
 
-
+@EnableJpaRepositories("ru.chabanov.spring.repository")
 @EnableTransactionManagement
 @ComponentScan("ru.chabanov.spring")
 @PropertySource("classpath:db-config.properties")
@@ -38,7 +39,7 @@ public class AppConfig {
         return dataSource;
     }
 
-    @Bean
+    @Bean(name = "entityManagerFactory")
     public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean
             (
             final DataSource dataSource,
@@ -54,12 +55,14 @@ public class AppConfig {
         factoryBean.setPackagesToScan("ru.chabanov.spring.model");
         final Properties properties = new Properties();
         properties.put("hibernate.show_sql",show_sql);
-        properties.put("hibernate.dialect",dialect);  // InnoDB работает без косяков fk создает
+        properties.put("hibernate.dialect",dialect);
         properties.put("hibernate.hbm2ddl.auto",hbm2ddl);
+        properties.put("hibernate.current_session_context_class","thread");
+        properties.put("hibernate.max_fetch_depth",2);
         factoryBean.setJpaProperties(properties);
         return factoryBean;
     }
-    @Bean
+    @Bean(name="transactionManager")
     public PlatformTransactionManager transactionManager(
             final LocalContainerEntityManagerFactoryBean entityManagerFactoryBean){
         final JpaTransactionManager transactionManager = new JpaTransactionManager();

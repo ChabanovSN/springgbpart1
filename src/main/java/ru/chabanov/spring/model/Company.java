@@ -3,30 +3,51 @@ package ru.chabanov.spring.model;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
-@ToString
+import static javax.persistence.FetchType.LAZY;
+
+
 @Entity
 @Table(name="app_company")
-@NamedQueries({
-        @NamedQuery(name="Company.findAll",query = "select e from Company e"),
-        @NamedQuery(name="Company.findById",query = "select distinct com from Company com left join fetch com.ads ")
-})
-public class Company {
+@NamedEntityGraph(
+        name = "Graph.Company",
+        includeAllAttributes = true,
+        attributeNodes = {
 
-    @Getter
-    @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Integer id;
+                @NamedAttributeNode(value = "ads", subgraph = "Company.Subgraph.ads")
+        },
+        subgraphs = {
+                @NamedSubgraph(
+                        name = "Company.Subgraph.ads",
+                        type = Ad.class,
+                        attributeNodes = {
+                                @NamedAttributeNode(value = "categories")
+                        }
+                )},
+        subclassSubgraphs = {
+                @NamedSubgraph(
+                        name = "Company.Subgraph.ads",
+                        type = Category.class,
 
-    @Setter
-    @Getter
-    @Column(name = "name_company")
-    private String name;
+                        attributeNodes = {
+                                @NamedAttributeNode(value = "name")
+                        }
+                )
+        }
+
+)
+public class Company extends Common {
+
+
 
     @Setter
     @Getter
@@ -38,8 +59,25 @@ public class Company {
 
     @Setter
     @Getter
-    @OneToMany(mappedBy = "owner",fetch=FetchType.EAGER)
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true,fetch = LAZY)
     @Column(name = "ad")
-    private Set<Ad> ads = new HashSet<>();
+        private Set<Ad> ads = new HashSet<>();
 
+    @Override
+    public String toString() {
+        return "Company{" +
+                "id=" + getId() +
+                ", name='" +getName() + '\'' +
+                ", description='" + description + '\'' +
+                ", address='" + address + '\'' +
+                ", ads=" + printSet(ads) +
+                '}';
+    }
+
+    private String printSet(Set set){
+        StringBuilder setString = new StringBuilder();
+        setString.append("\n");
+       set.forEach(m -> setString.append(m).append("\n"));
+        return setString.toString();
+    }
 }
