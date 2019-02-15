@@ -18,6 +18,7 @@ import ru.chabanov.spring.dao.CRUDImpl;
 import javax.sql.DataSource;
 import java.util.Properties;
 
+@Configuration
 @EnableJpaRepositories("ru.chabanov.spring.repository")
 @EnableTransactionManagement
 @ComponentScan("ru.chabanov.spring")
