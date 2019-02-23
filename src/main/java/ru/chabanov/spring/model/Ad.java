@@ -15,7 +15,20 @@ import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Table(name="app_adv")
-public class Ad extends Common {
+public class Ad  {
+
+    @Getter
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    private Integer id;
+
+    @Getter
+    @Setter
+    private String name;
+
+    @Getter
+    @Version
+    private Integer version;
 
     @Setter
     @Getter

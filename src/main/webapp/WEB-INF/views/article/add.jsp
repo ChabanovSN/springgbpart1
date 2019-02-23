@@ -62,13 +62,13 @@
                 </c:forEach>
                </c:if>
            </select> 
-           <p><form:label path="title" class="add_title">Заголовок*</form:label><form:input type="text" path="name" class="add_title_input"  />
+           <p><form:label path="name" class="add_title">Заголовок*</form:label><form:input type="text" path="name" class="add_title_input"  />
            <p style="padding-top:50px;">
            <form:textarea path="content" id="content"  class="contentarea"></form:textarea>
 
          <div class="author_add">
             <span class="author_info_title">Данные компании*</span>
-           <form:input path="company.name"  type="text" placeholder="Имя" class="add_author_firstname" />
+           <form:input path="company.name"  type="text" placeholder="Название компании" class="add_author_firstname" />
 
          </div>
 

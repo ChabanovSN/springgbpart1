@@ -19,7 +19,21 @@ import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Table(name="app_category")
-public class Category extends Common {
+public class Category  {
+
+    @Getter
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    private Integer id;
+
+    @Getter
+    @Setter
+    private String name;
+
+    @Getter
+    @Version
+    private Integer version;
+
     @Setter
     @Getter
     @OneToMany(mappedBy = "categories", fetch = LAZY)

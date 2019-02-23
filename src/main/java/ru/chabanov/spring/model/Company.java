@@ -45,7 +45,20 @@ import static javax.persistence.FetchType.LAZY;
         }
 
 )
-public class Company extends Common {
+public class Company  {
+
+    @Getter
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    private Integer id;
+
+    @Getter
+    @Setter
+    private String name;
+
+    @Getter
+    @Version
+    private Integer version;
 
     @Setter
     @Getter
