@@ -1,6 +1,8 @@
 package ru.chabanov.spring.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.chabanov.spring.model.Ad;
@@ -16,22 +18,34 @@ public class AdServiceImpl implements AdService {
     private AdRepository adRepo;
 
     @Override
-    public List<Ad> getAll() {
-        return adRepo.findAll();
+    @Transactional(readOnly=true)
+    public Page<Ad> getAll(Pageable pageable) {
+
+        Page<Ad> articles = adRepo.findAll(pageable);
+
+        return articles;
     }
 
     @Override
+    @Transactional(readOnly=true)
     public Ad get(Integer id) {
-        return adRepo.findAdId(id);
+
+        return adRepo.findById(id).get();
     }
 
     @Override
-    public void save(Ad ad) {
-           adRepo.save(ad);
+    @Transactional
+    public void save(Ad article) {
+
+        adRepo.save(article);
     }
 
+
     @Override
-    public void delete(Integer id) {
-        adRepo.delete(adRepo.findAdId(id));
+    @Transactional(readOnly=true)
+    public Page<Ad> getByCategoryId(Integer id, Pageable pageable) {
+
+        Page<Ad> articles = adRepo.findByCategoryId(id, pageable);
+        return articles;
     }
 }

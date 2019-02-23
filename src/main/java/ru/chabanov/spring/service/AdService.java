@@ -1,14 +1,17 @@
 package ru.chabanov.spring.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import ru.chabanov.spring.model.Ad;
 
 import java.util.List;
 
 public interface AdService {
-    List<Ad> getAll();
+    public Page<Ad> getAll(Pageable pageable);
 
-    Ad get(Integer id);
+    public Ad get(Integer id);
 
-    void save(Ad ad);
-    void delete(Integer id);
+    public void save(Ad article);
+
+    public Page<Ad> getByCategoryId(Integer id, Pageable pageable);
 }

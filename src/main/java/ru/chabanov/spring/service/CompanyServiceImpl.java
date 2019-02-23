@@ -16,22 +16,31 @@ public class CompanyServiceImpl implements CompanyService {
    private CompanyRepository companyRepo;
 
     @Override
+    @Transactional(readOnly=true)
+    public Company get(Integer id) {
+
+        return companyRepo.getOne(id);
+    }
+
+    @Override
+    @Transactional(readOnly=true)
     public List<Company> getAll() {
+
         return companyRepo.findAll();
     }
 
     @Override
-    public Company get(Integer id) {
-        return companyRepo.findCompanyById(id);
-    }
-
-    @Override
+    @Transactional
     public void save(Company company) {
-             companyRepo.save(company);
+
+        companyRepo.save(company);
     }
 
     @Override
-    public void delete(Integer id) {
-        companyRepo.delete(companyRepo.findCompanyById(id));
+    @Transactional
+    public void remove(Company company) {
+
+        companyRepo.delete(company);
     }
+
 }

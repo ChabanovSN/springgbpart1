@@ -12,7 +12,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import static javax.persistence.FetchType.LAZY;
 
 
@@ -47,8 +47,6 @@ import static javax.persistence.FetchType.LAZY;
 )
 public class Company extends Common {
 
-
-
     @Setter
     @Getter
     private String description;
@@ -59,9 +57,9 @@ public class Company extends Common {
 
     @Setter
     @Getter
-    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true,fetch = LAZY)
-    @Column(name = "ad")
-        private Set<Ad> ads = new HashSet<>();
+    @OneToMany(mappedBy = "company",fetch = LAZY)
+    @JsonIgnore
+    private List<Ad> ads;
 
     @Override
     public String toString() {
@@ -74,7 +72,7 @@ public class Company extends Common {
                 '}';
     }
 
-    private String printSet(Set set){
+    private String printSet(List set){
         StringBuilder setString = new StringBuilder();
         setString.append("\n");
        set.forEach(m -> setString.append(m).append("\n"));

@@ -16,23 +16,31 @@ public class CategoryServiceImpl implements CategoryService {
     private CategoryRepository categoryRepo;
 
     @Override
+    @Transactional(readOnly=true)
+    public Category get(Integer id) {
+
+        return categoryRepo.getOne(id);
+    }
+
+    @Override
+    @Transactional(readOnly=true)
     public List<Category> getAll() {
+
         return categoryRepo.findAll();
     }
 
     @Override
-    public Category get(Integer id) {
-        return categoryRepo.findAdId(id);
-    }
+    @Transactional
+    public void save(Category category) {
 
-
-    @Override
-    public void save(Category c) {
-            categoryRepo.save(c);
+        categoryRepo.save(category);
     }
 
     @Override
-    public void delete(Integer id) {
-        categoryRepo.delete(categoryRepo.findAdId(id));
+    @Transactional
+    public void remove(Category category) {
+
+        categoryRepo.delete(category);
     }
-}
+
+    }

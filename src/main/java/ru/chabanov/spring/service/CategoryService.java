@@ -5,10 +5,11 @@ import ru.chabanov.spring.model.Category;
 import java.util.List;
 
 public interface CategoryService {
-    List<Category> getAll();
+    public Category get(Integer id);
 
-    Category get(Integer id);
+    public List<Category> getAll();
 
-    void save(Category c);
-    void delete(Integer id);
+    public void save(Category category);
+
+    public void remove(Category category);
 }

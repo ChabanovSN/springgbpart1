@@ -3,8 +3,7 @@ package ru.chabanov.spring;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import ru.chabanov.spring.config.AppConfig;
-import ru.chabanov.spring.dao.CRUD;
-import ru.chabanov.spring.dao.CRUDImpl;
+
 import ru.chabanov.spring.model.Ad;
 import ru.chabanov.spring.model.Category;
 import ru.chabanov.spring.model.Company;
@@ -51,8 +50,9 @@ public class Main {
 //        categoryService.save(category);
 
 
-//       companyService.getAll().forEach(System.out::println);
-//        adService.getAll().forEach(System.out::println);
-        categoryService.getAll().forEach(System.out::println);
+//   companyService.getAll().forEach(System.out::println);
+////        adService.getAll().forEach(System.out::println)
+////
+//        categoryService.getAll().forEach(System.out::println);
     }
 }

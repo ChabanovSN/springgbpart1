@@ -14,15 +14,15 @@ import java.util.Optional;
 
 
 @Repository
-public interface CompanyRepository extends CrudRepository<Company,Integer> {
+public interface CompanyRepository extends JpaRepository<Company,Integer> {
 
 
-      Company findCompanyById(Integer integer);
-     /// в чем разница этих подходов?
-      @Query("FROM Company AS c LEFT JOIN FETCH c.ads AS ads LEFT JOIN FETCH ads.categories ")
- //   @EntityGraph(value = "Graph.Company", type = EntityGraph.EntityGraphType.FETCH)
-      @Override
-      List<Company> findAll();
+//      Company findCompanyById(Integer integer);
+//     /// в чем разница этих подходов?
+//      @Query("FROM Company AS c LEFT JOIN FETCH c.ads AS ads LEFT JOIN FETCH ads.categories ")
+// //   @EntityGraph(value = "Graph.Company", type = EntityGraph.EntityGraphType.FETCH)
+//      @Override
+//      List<Company> findAll();
 
 
 }

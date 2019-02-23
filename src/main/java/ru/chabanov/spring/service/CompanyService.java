@@ -5,10 +5,11 @@ import ru.chabanov.spring.model.Company;
 import java.util.List;
 
 public interface CompanyService {
-     List<Company> getAll();
+    public Company get(Integer id);
 
-     Company get(Integer id);
+    public List<Company> getAll();
 
-    void save(Company company);
-    void delete(Integer id);
+    public void save(Company company);
+
+    public void remove(Company company);
 }

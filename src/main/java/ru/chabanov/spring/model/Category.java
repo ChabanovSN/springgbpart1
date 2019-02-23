@@ -20,12 +20,10 @@ import static javax.persistence.FetchType.LAZY;
 @Entity
 @Table(name="app_category")
 public class Category extends Common {
-
-
     @Setter
     @Getter
-    @ManyToMany(mappedBy = "categories", fetch = LAZY,cascade = CascadeType.ALL)
-    private Set<Ad> ads= new HashSet<>();
+    @OneToMany(mappedBy = "categories", fetch = LAZY)
+    private List<Ad> ads;
 
     @Override
     public String toString() {
@@ -35,7 +33,7 @@ public class Category extends Common {
            //     ", ads=" + printSet(ads) +
                 '}';
     }
-    private String printSet(Set<Ad> set){
+    private String printSet(List<Ad> set){
         StringBuilder setString = new StringBuilder();
         setString.append("\n");
         set.forEach(m -> setString.append(m).append("\n"));

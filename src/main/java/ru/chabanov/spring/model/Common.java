@@ -8,8 +8,7 @@ import javax.persistence.*;
 
 @ToString
 @MappedSuperclass
-public class Common {
-
+class Common {
     @Getter
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -22,12 +21,4 @@ public class Common {
     @Getter
     @Version
     private Integer version;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }

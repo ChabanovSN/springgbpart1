@@ -1,22 +1,19 @@
 package ru.chabanov.spring.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import ru.chabanov.spring.model.Ad;
 
-import java.util.List;
-import java.util.Optional;
-
 @Repository
-public interface AdRepository extends CrudRepository<Ad,Integer> {
+public interface AdRepository extends PagingAndSortingRepository<Ad, Integer> {
 
-    @Query("FROM Ad AS ads LEFT JOIN FETCH ads.categories LEFT JOIN FETCH ads.owner ")
-    @Override
-    List<Ad> findAll();
+@Query("select  a FROM Ad a WHERE a.categories.id=:id")
+ Page<Ad> findByCategoryId(@Param("id")Integer id, Pageable pageable);
 
-    @Query("FROM Ad AS ads LEFT JOIN FETCH ads.categories LEFT JOIN FETCH ads.owner  WHERE ads.id = :id ")
-    Ad findAdId(@Param("id") Integer integer);
 }
