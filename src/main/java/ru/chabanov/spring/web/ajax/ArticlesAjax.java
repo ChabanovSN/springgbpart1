@@ -8,14 +8,14 @@ import ru.chabanov.spring.model.Ad;
 public class ArticlesAjax {
 	
 	
-	private List<Ad> articles;
+	private List<Ad> ads;
 
 	public List<Ad> getArticles() {
-		return articles;
+		return ads;
 	}
 
-	public void setArticles(List<Ad> articles) {
-		this.articles = articles;
+	public void setArticles(List<Ad> ads) {
+		this.ads = ads;
 	}
 	
 	

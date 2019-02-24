@@ -1,5 +1,5 @@
 //Шаблон для размещения описания статьи в списке
-var articleBody="<div class='post_section'>"+"<h2><a class='article__title' href='' ></a></h2>"+"<strong>Дата: </span></strong><span class='article__date'></span>|<strong>Автор: </strong><span class='article__author'></span>"
+var articleBody="<div class='post_section'>"+"<h2><a class='article__title' href='' ></a></h2>"+"<strong>Дата: </span></strong><span class='article__date'></span>|<strong>Компания: </strong><span class='article__author'></span>"
 +"<p><div class='article__content'></div>"
 +"<div class='cleaner'></div>"
 +"<p><div class='category'>Категория: <span class='article__category'></span></div> <div class='button float_r'><a href=' ' class='more'>Читать далее</a></div>"+"<div class='cleaner'></div>"
@@ -20,7 +20,7 @@ function renderingArticles(articles){
 	
      articles.forEach(function(article){
     	 
-    	    var test = $(articleBody).find(".article__title").attr("href",contextPath+"/articles/"+article["id"]).html(article["title"])
+    	    var test = $(articleBody).find(".article__title").attr("href",contextPath+"/articles/"+article["id"]).html(article["name"])
 	     	.end().find(".article__date").html(article["publishedDate"])
 	     	.end().find(".article__author").html(article["company"]["name"])
 	     	.end().find(".article__content").html(article["content"].substring(0,110)+"...")
@@ -46,13 +46,13 @@ function loadArticles(){
 			     
 			     if(articlesResponsive==0){
 			    	 
-			
+			alert("Пусто");
 
 			     }else{
-			    	 
-			    	//если ответ содержит данные, то они размещаются на странице
+					 console.log(articlesResponsive.toString());
+					 //если ответ содержит данные, то они размещаются на странице
 			    	//а счетчик страниц(блоков) увеличивается на единицу
-			    	 renderingArticles(articlesResponsive["articles"]);
+			    	 renderingArticles(articlesResponsive["ads"]);
 			    	 pageCounter++;
 			     }
 		},

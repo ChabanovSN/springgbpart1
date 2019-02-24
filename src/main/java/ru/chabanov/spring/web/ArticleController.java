@@ -133,7 +133,8 @@ public class ArticleController {
 		ArticlesAjax responsive =new  ArticlesAjax();
 		//из объекта Page возвращаем итератор и с помощью библиотеки google guava создаем списочный массив
 		responsive.setArticles(Lists.newArrayList(articlePage.iterator()));
-		
+		System.out.println("ArticleController");
+		responsive.getArticles().forEach(System.out::println);
 		return responsive;
 
      }

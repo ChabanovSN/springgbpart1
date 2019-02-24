@@ -66,7 +66,8 @@ public class CategoryController {
 		Page<Ad> adPage = adService.getByCategoryId(id, pageable);
 		ArticlesAjax responsive =new  ArticlesAjax();
 		responsive.setArticles(Lists.newArrayList(adPage.iterator()));
-		
+		System.out.println("CategoryController");
+		responsive.getArticles().forEach(System.out::println);
 		return responsive;
 
      }
