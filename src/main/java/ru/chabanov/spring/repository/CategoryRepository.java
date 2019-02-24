@@ -12,10 +12,10 @@ import java.util.List;
 
 @Repository
 public interface CategoryRepository extends JpaRepository<Category,Integer> {
-//    @Query("FROM Category AS c LEFT JOIN FETCH c.ads")
+//    @Query("   FROM Category AS c LEFT JOIN FETCH c.ads")
 //    @Override
 //    List<Category> findAll();
-//
-//    @Query("FROM Category AS c LEFT JOIN FETCH c.ads  WHERE c.id = :id ")
-//    Category findAdId(@Param("id") Integer integer);
+
+    @Query("FROM Category AS c LEFT JOIN FETCH c.ads  WHERE c.id = :id ")
+    Category findOneCategory(@Param("id") Integer integer);
 }

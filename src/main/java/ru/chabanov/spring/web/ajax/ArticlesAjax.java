@@ -10,15 +10,11 @@ public class ArticlesAjax {
 	
 	private List<Ad> ads;
 
-	public List<Ad> getArticles() {
+	public List<Ad> getAds() {
 		return ads;
 	}
 
-	public void setArticles(List<Ad> ads) {
+	public void setAds(List<Ad> ads) {
 		this.ads = ads;
 	}
-	
-	
-	
-
 }

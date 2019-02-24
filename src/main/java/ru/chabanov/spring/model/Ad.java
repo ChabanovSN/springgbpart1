@@ -36,6 +36,8 @@ public class Ad  {
     @JoinColumn(name = "company_id")
     private Company company;
 
+    @Setter
+    @Getter
     @Column(name="published_date", insertable=false)
     @Temporal(TemporalType.TIMESTAMP)
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")

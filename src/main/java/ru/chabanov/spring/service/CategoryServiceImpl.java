@@ -19,7 +19,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Transactional(readOnly=true)
     public Category get(Integer id) {
 
-        return categoryRepo.getOne(id);
+        return categoryRepo.findOneCategory(id);
     }
 
     @Override

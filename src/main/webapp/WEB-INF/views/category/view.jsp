@@ -41,7 +41,7 @@
 
 	<div id="templatemo_content">
   <h2 class="category_name">${category.name}</h2>
-    
+
   </div>
  <div id="templatemo_sidebar_one">
     

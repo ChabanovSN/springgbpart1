@@ -1,5 +1,6 @@
 package ru.chabanov.spring.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -36,6 +37,7 @@ public class Category  {
 
     @Setter
     @Getter
+    @JsonIgnore
     @OneToMany(mappedBy = "categories", fetch = LAZY)
     private List<Ad> ads;
 

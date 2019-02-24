@@ -3,6 +3,7 @@ package ru.chabanov.spring.web;
 import static org.hamcrest.CoreMatchers.nullValue;
 
 import java.lang.reflect.Method;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -74,6 +75,7 @@ public class ArticleController {
 	public String addForm(Model uiModel){
 		//создание пустого объекта
 		Ad article = new Ad();
+		article.setPublishedDate(new Date());
 		article.setCompany(new Company());
 		//получение списка всех категорий для возможности выбора категории, к которо будет принадлежать создаваемая статья
 		List<Category> categories = categoryService.getAll();
@@ -132,9 +134,9 @@ public class ArticleController {
 		
 		ArticlesAjax responsive =new  ArticlesAjax();
 		//из объекта Page возвращаем итератор и с помощью библиотеки google guava создаем списочный массив
-		responsive.setArticles(Lists.newArrayList(articlePage.iterator()));
+		responsive.setAds(Lists.newArrayList(articlePage.iterator()));
 		System.out.println("ArticleController");
-		responsive.getArticles().forEach(System.out::println);
+		responsive.getAds().forEach(System.out::println);
 		return responsive;
 
      }

@@ -50,12 +50,17 @@
      
          <div class='post_section view'>
          <h2><a class='article__title' href='' ></a>${article.name}</h2>
-         <strong>Дата: </strong><span class='article__date'><fmt:formatDate pattern="yyyy-MM-dd"
-            value="${article.publishedDate}" /></span> | <strong>Автор: </strong> <span class='article__author'>${article.company.name}</span>
+         <strong>Дата:</strong>
+             <span class='article__date'>
+                 <fmt:formatDate pattern="yyyy-MM-dd"
+            value="${article.publishedDate}"
+                 />
+             </span>
+             | <strong>Автор: </strong> <span class='article__author'>${article.company.name}</span>
          <div class="cleaner"></div>
          <p><div class='article__content view'>${article.content}</div>
          <div class='cleaner'></div>
-         <p><div class='category view'>Категория: <span>${article.category.name}</span></div>
+         <p><div class='category view'>Категория: <span>${article.categories.name}</span></div>
         </div>
         
    </c:if>

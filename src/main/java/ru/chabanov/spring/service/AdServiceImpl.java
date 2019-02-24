@@ -45,7 +45,7 @@ public class AdServiceImpl implements AdService {
     @Transactional(readOnly=true)
     public Page<Ad> getByCategoryId(Integer id, Pageable pageable) {
 
-        Page<Ad> articles = adRepo.findByCategoryId(id, pageable);
-        return articles;
+        Page<Ad> ads = adRepo.findByCategoryId(id, pageable);
+        return ads;
     }
 }

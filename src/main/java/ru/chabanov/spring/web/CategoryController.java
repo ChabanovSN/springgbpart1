@@ -42,6 +42,7 @@ public class CategoryController {
 		uiModel.addAttribute("category", category);
 		List<Category> categories = categoryService.getAll();
 		uiModel.addAttribute("categories",categories);
+
 		return "category/view";
 		
 	}
@@ -65,9 +66,9 @@ public class CategoryController {
 		PageRequest pageable = new PageRequest(pageCounter,number, sort);
 		Page<Ad> adPage = adService.getByCategoryId(id, pageable);
 		ArticlesAjax responsive =new  ArticlesAjax();
-		responsive.setArticles(Lists.newArrayList(adPage.iterator()));
+		responsive.setAds(Lists.newArrayList(adPage.iterator()));
 		System.out.println("CategoryController");
-		responsive.getArticles().forEach(System.out::println);
+		responsive.getAds().forEach(System.out::println);
 		return responsive;
 
      }
