@@ -3,15 +3,18 @@ package ru.chabanov.spring.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 import java.util.*;
 
-import static javax.persistence.FetchType.LAZY;
+
 
 @Entity
 @Table(name="app_adv")
@@ -24,6 +27,7 @@ public class Ad  {
 
     @Getter
     @Setter
+    @Size(min=2, max=150, message="{validation.title.size}")
     private String name;
 
     @Getter
@@ -34,6 +38,7 @@ public class Ad  {
     @Getter
     @ManyToOne(cascade=CascadeType.PERSIST)
     @JoinColumn(name = "company_id")
+    @Valid
     private Company company;
 
     @Setter
@@ -51,7 +56,7 @@ public class Ad  {
 
     @Setter
     @Getter
-    @Column(length = 500)
+    @Size(min=100, message="{validation.content.min}")
     private String content;
 
     @Setter

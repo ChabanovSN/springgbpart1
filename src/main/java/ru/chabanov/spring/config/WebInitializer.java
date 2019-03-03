@@ -1,5 +1,6 @@
 package ru.chabanov.spring.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
@@ -13,6 +14,7 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
         //возвращает корневую конфигурации приложения (сервисы и дао-уровень)
         return  new Class<?>[] {AppConfig.class};
     }
+
 
     @Override
     protected Class<?>[] getServletConfigClasses() {

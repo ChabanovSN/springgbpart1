@@ -5,10 +5,13 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import java.lang.reflect.Method;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -25,6 +28,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.common.collect.Lists;
 
 
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.chabanov.spring.model.Ad;
 import ru.chabanov.spring.model.Category;
 import ru.chabanov.spring.model.Company;
@@ -35,7 +39,8 @@ import ru.chabanov.spring.web.ajax.ArticlesAjax;
 @Controller
 @RequestMapping("/articles")
 public class ArticleController {
-	
+	@Autowired
+	private MessageSource messageSource;
 	
 	@Autowired
 	private AdService adService;
@@ -43,11 +48,7 @@ public class ArticleController {
 	@Autowired
 	private CategoryService categoryService;
 	
-	/**
-	 * Метод перенаправляет клиента с адреса https://localhost:8080/lesson6/articles
-	 * на https://localhost:8080/lesson6 (необходим для следования стилю REST)
-	 * 
-	 */
+
 	@RequestMapping(method=RequestMethod.GET)
 	public String list(){
 		
@@ -84,20 +85,33 @@ public class ArticleController {
 		return "article/add";
 		
 	}
-	
+
 	@RequestMapping(method=RequestMethod.POST)
-	public String add(@ModelAttribute("article") Ad ad, BindingResult bindingResult, @RequestParam("categoryId") Integer categoryId){
-		
+	public String add(Model uiModel, @ModelAttribute("article") @Valid Ad article, BindingResult bindingResult, @RequestParam("categoryId") Integer categoryId, Locale locale, RedirectAttributes redirectAttributes){
+
 		Category category = categoryService.get(categoryId);
-		if(bindingResult.hasErrors() || category==null){
-			
-			return "redirect:/articles/add";
-			
+		// Проверяем форму на наличие ошибок
+		if(bindingResult.hasErrors() || categoryId==null){
+
+			// Если ошибка найдена, то заново создаем объект article для формы
+			uiModel.addAttribute("article", article)
+					// Список категорий для выбора категорий в форме
+					.addAttribute("categories", categoryService.getAll())
+					// и добавляем сообщение о результате добавления статьи
+					.addAttribute("message",messageSource.getMessage("article_create_fail", new Object[]{}, locale) );
+
+			return "article/add";
+
 		}
-		ad.setCategories(category);
-		adService.save(ad);
+		// Если валидация прошла успешно, то задаем категорию вновь созданной статьи
+		article.setCategories(category);
+		// Сохраняем статью
+		adService.save(article);
+		// Редиректим юзера на главную страницу, выводя сообщение об успехе добавления статьи
+		redirectAttributes.addFlashAttribute("message", messageSource.getMessage("article_create_success", new Object[]{}, locale));
 		return "redirect:/";
 	}
+
 
 	/**
 	 * Метод обрабатывающий асинхронный запрос 
@@ -135,8 +149,7 @@ public class ArticleController {
 		ArticlesAjax responsive =new  ArticlesAjax();
 		//из объекта Page возвращаем итератор и с помощью библиотеки google guava создаем списочный массив
 		responsive.setAds(Lists.newArrayList(articlePage.iterator()));
-		System.out.println("ArticleController");
-		responsive.getAds().forEach(System.out::println);
+
 		return responsive;
 
      }
