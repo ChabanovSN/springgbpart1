@@ -19,19 +19,16 @@ import ru.chabanov.spring.service.CategoryService;
 
 
 @Controller
-@RequestMapping("/")
 public class HomeController {
 
 	@Autowired
 	private CategoryService categoryService;
 	
-	@RequestMapping(method=RequestMethod.GET)
+	@RequestMapping(value="/", method=RequestMethod.GET)
 	public String home(Model uiModel){
-		
-		
 		List<Category> categories = categoryService.getAll();
 		uiModel.addAttribute("categories",categories);
-		
+
 		return "home/main";
 		
 	}	

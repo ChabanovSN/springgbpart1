@@ -33,7 +33,6 @@ import ru.chabanov.spring.service.CategoryService;
 import ru.chabanov.spring.web.ajax.ArticlesAjax;
 
 @Controller
-@RequestMapping("/articles")
 public class ArticleController {
 	
 	
@@ -48,7 +47,7 @@ public class ArticleController {
 	 * на https://localhost:8080/lesson6 (необходим для следования стилю REST)
 	 * 
 	 */
-	@RequestMapping(method=RequestMethod.GET)
+	@RequestMapping(value = "/articles",method=RequestMethod.GET)
 	public String list(){
 		
 		 return "redirect:/";
@@ -62,7 +61,7 @@ public class ArticleController {
 	 * @return путь к странице отображения статьи
 	 */
 	
-	@RequestMapping(value="/{id}", method=RequestMethod.GET)
+	@RequestMapping(value="/articles/{id}", method=RequestMethod.GET)
 	public String view(@PathVariable("id") Integer id,Model uiModel){
 		
 		Ad article = adService.get(id);
@@ -71,7 +70,7 @@ public class ArticleController {
 		
 	}
 	
-	@RequestMapping(value="/add", method= RequestMethod.GET)
+	@RequestMapping(value="/articles/add", method= RequestMethod.GET)
 	public String addForm(Model uiModel){
 		//создание пустого объекта
 		Ad article = new Ad();
@@ -85,7 +84,7 @@ public class ArticleController {
 		
 	}
 	
-	@RequestMapping(method=RequestMethod.POST)
+	@RequestMapping( method=RequestMethod.POST)
 	public String add(@ModelAttribute("article") Ad ad, BindingResult bindingResult, @RequestParam("categoryId") Integer categoryId){
 		
 		Category category = categoryService.get(categoryId);
@@ -102,7 +101,7 @@ public class ArticleController {
 	/**
 	 * Метод обрабатывающий асинхронный запрос 
 	 */
-	@RequestMapping(value="/articles_ajax",method=RequestMethod.GET, produces="application/json")
+	@RequestMapping(value="/articles/articles_ajax",method=RequestMethod.GET, produces="application/json")
 	@ResponseBody
 	/**
 	 * @param pageCounter-текущая страница(блок из number статей)

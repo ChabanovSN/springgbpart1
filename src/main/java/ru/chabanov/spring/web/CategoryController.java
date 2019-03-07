@@ -24,7 +24,6 @@ import ru.chabanov.spring.service.CategoryService;
 import ru.chabanov.spring.web.ajax.ArticlesAjax;
 
 @Controller
-@RequestMapping("/categories")
 public class CategoryController {
 	
 	
@@ -35,10 +34,10 @@ public class CategoryController {
 	private CategoryService categoryService;
 	
 	
-	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public String view(@PathVariable("id") Integer id,Model uiModel){
+	@RequestMapping(value="/categories", method=RequestMethod.GET)
+	public String view(@RequestParam("id") String id,Model uiModel){
 		
-		Category category = categoryService.get(id);
+		Category category = categoryService.get(Integer.parseInt(id));
 		uiModel.addAttribute("category", category);
 		List<Category> categories = categoryService.getAll();
 		uiModel.addAttribute("categories",categories);
@@ -48,7 +47,7 @@ public class CategoryController {
 	}
 	
 	
-	@RequestMapping(value="/{id}/articles_ajax",method=RequestMethod.GET, produces="application/json")
+	@RequestMapping(value="/categories/{id}/articles_ajax",method=RequestMethod.GET, produces="application/json")
 	@ResponseBody
 	public ArticlesAjax viewAjax(@PathVariable("id") Integer id, @RequestParam("pageCounter") Integer pageCounter, @RequestParam("number") Integer number, @RequestParam("order") String order, @RequestParam("orderBy") String orderBy){
 		
