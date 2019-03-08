@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import ru.chabanov.spring.model.Category;
 import ru.chabanov.spring.service.CategoryService;
 
+import javax.servlet.annotation.WebServlet;
+
 
 @Controller
 public class HomeController {

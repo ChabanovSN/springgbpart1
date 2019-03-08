@@ -19,6 +19,8 @@ import java.util.Set;
 public class Main {
     public static void main(String[] args) {
         ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
+        String[] beanDefinitionNames = context.getBeanDefinitionNames();
+        for(String s : beanDefinitionNames) System.out.println(s);
 //        Company company = new Company();
 //        company.setAddress("Пушкино 5");
 //        company.setDescription("Ля-ля-ля");
@@ -50,9 +52,9 @@ public class Main {
 //        categoryService.save(category);
 
 
-//   companyService.getAll().forEach(System.out::println);
-////        adService.getAll().forEach(System.out::println)
+  // companyService.getAll().forEach(System.out::println);
+      //  adService.getAll().forEach(System.out::println);
 ////
-//        categoryService.getAll().forEach(System.out::println);
+   //     categoryService.getAll().forEach(System.out::println);
     }
 }
