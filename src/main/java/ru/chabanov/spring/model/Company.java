@@ -7,6 +7,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -45,6 +46,17 @@ import static javax.persistence.FetchType.LAZY;
         }
 
 )
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "ad", propOrder = {
+        "id",
+        "name",
+        "version",
+        "description",
+        "address",
+        "ads"
+
+
+})
 public class Company  {
 
     @Getter
@@ -72,6 +84,10 @@ public class Company  {
     @Getter
     @OneToMany(mappedBy = "company",fetch = LAZY)
     @JsonIgnore
+    @XmlElementWrapper(name = "ads")
+    @XmlElements({
+            @XmlElement(name = "ad", type = Ad.class)
+    })
     private List<Ad> ads;
 
     @Override

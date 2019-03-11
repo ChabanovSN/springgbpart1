@@ -9,6 +9,7 @@ import org.hibernate.annotations.FetchMode;
 
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -20,6 +21,15 @@ import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Table(name="app_category")
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "ad", propOrder = {
+        "id",
+        "name",
+        "version",
+        "ads",
+
+
+})
 public class Category  {
 
     @Getter
@@ -39,6 +49,10 @@ public class Category  {
     @Getter
     @JsonIgnore
     @OneToMany(mappedBy = "categories", fetch = LAZY)
+    @XmlElementWrapper(name = "ads")
+    @XmlElements({
+            @XmlElement(name = "ad", type = Ad.class)
+    })
     private List<Ad> ads;
 
     @Override

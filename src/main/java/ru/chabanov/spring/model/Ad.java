@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.*;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -18,11 +19,25 @@ import java.util.*;
 
 @Entity
 @Table(name="app_adv")
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "ad", propOrder = {
+        "id",
+        "name",
+        "version",
+        "company",
+        "publishedDate",
+        "categories",
+        "content",
+        "number"
+
+})
+
 public class Ad  {
 
     @Getter
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @XmlElement(required = true)
     private Integer id;
 
     @Getter
@@ -32,6 +47,7 @@ public class Ad  {
 
     @Getter
     @Version
+    @XmlElement(required = true)
     private Integer version;
 
     @Setter
@@ -39,6 +55,7 @@ public class Ad  {
     @ManyToOne(cascade=CascadeType.PERSIST)
     @JoinColumn(name = "company_id")
     @Valid
+    @XmlElement(required = true)
     private Company company;
 
     @Setter
@@ -46,21 +63,25 @@ public class Ad  {
     @Column(name="published_date", insertable=false)
     @Temporal(TemporalType.TIMESTAMP)
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
+    @XmlElement(required = true)
     private Date publishedDate;
 
     @Setter
     @Getter
     @ManyToOne
     @JoinColumn(name="category_id")
+    @XmlElement(required = true)
     private Category categories ;
 
     @Setter
     @Getter
     @Size(min=100, message="{validation.content.min}")
+    @XmlElement(required = true)
     private String content;
 
     @Setter
     @Getter
+    @XmlElement(required = true)
     private String number;
 
     @Override
