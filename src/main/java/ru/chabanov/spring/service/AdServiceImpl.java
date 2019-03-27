@@ -48,4 +48,21 @@ public class AdServiceImpl implements AdService {
         Page<Ad> ads = adRepo.findByCategoryId(id, pageable);
         return ads;
     }
+
+    @Override
+    @Transactional
+    public void delete(Integer id) {
+        adRepo.delete(get(id));
+    }
+
+    @Override
+    @Transactional
+    public void update(Ad article){
+        Ad updatableArticle =  adRepo.findById(article.getId()).get();
+        updatableArticle.setContent(article.getContent());
+        updatableArticle.setName(article.getName());
+        if(article.getCategories()!=null)
+            updatableArticle.setCategories(article.getCategories());
+        adRepo.save(updatableArticle);
+    }
 }

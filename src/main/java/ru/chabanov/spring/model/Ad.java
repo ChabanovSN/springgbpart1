@@ -8,6 +8,8 @@ import org.hibernate.annotations.FetchMode;
 
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.Size;
 
 import java.util.*;
 
@@ -24,6 +26,7 @@ public class Ad  {
 
     @Getter
     @Setter
+    @Size(min=2, max=150, message="{validation.article.title.size}")
     private String name;
 
     @Getter
@@ -34,6 +37,7 @@ public class Ad  {
     @Getter
     @ManyToOne(cascade=CascadeType.PERSIST)
     @JoinColumn(name = "company_id")
+    @Valid
     private Company company;
 
     @Setter
@@ -51,7 +55,7 @@ public class Ad  {
 
     @Setter
     @Getter
-    @Column(length = 500)
+    @Size(min=100, message="{validation.article.content.size}")
     private String content;
 
     @Setter

@@ -12,4 +12,5 @@ public interface CompanyService {
     public void save(Company company);
 
     public void remove(Company company);
+    public Company getByLogin(String login);
 }

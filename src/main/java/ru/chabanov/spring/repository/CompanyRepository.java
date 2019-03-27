@@ -16,6 +16,7 @@ import java.util.Optional;
 @Repository
 public interface CompanyRepository extends JpaRepository<Company,Integer> {
 
+    public Company findByLogin(String login);
 
 //      Company findCompanyById(Integer integer);
 //     /// в чем разница этих подходов?

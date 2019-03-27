@@ -7,6 +7,8 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -48,13 +50,34 @@ import static javax.persistence.FetchType.LAZY;
 public class Company  {
 
     @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer id;
 
     @Getter
     @Setter
+    @Pattern(regexp="[a-zA-z]+([ '-][a-zA-Z]+)*",message="{validation.author.lastname.pattern}")
+    @Size(min=2, max=50, message="{validation.author.lastname.size}")
     private String name;
+
+    @ManyToOne
+    @JoinColumn(name="role_id")
+    @Getter
+    @Setter
+    private Role role;
+
+    @Pattern(regexp="^[a-zA-Z0-9._-]{3,}$", message="{validation.author.login.pattern}")
+    @Column(name="login")
+    @Getter
+    @Setter
+    private String login;
+
+    @Pattern(regexp=".{8,}", message="{validation.author.password.pattern}")
+    @Column(name="password")
+    @Getter
+    @Setter
+    private String password;
 
     @Getter
     @Version
