@@ -1,6 +1,7 @@
 package ru.chabanov.spring.model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.Fetch;
@@ -47,6 +48,7 @@ import static javax.persistence.FetchType.LAZY;
         }
 
 )
+@NoArgsConstructor
 public class Company  {
 
     @Getter
@@ -57,7 +59,7 @@ public class Company  {
 
     @Getter
     @Setter
-    @Pattern(regexp="[a-zA-z]+([ '-][a-zA-Z]+)*",message="{validation.author.lastname.pattern}")
+   // @Pattern(regexp="[a-zA-z]+([ '-][a-zA-Z]+)*",message="{validation.author.lastname.pattern}")
     @Size(min=2, max=50, message="{validation.author.lastname.size}")
     private String name;
 
@@ -67,13 +69,13 @@ public class Company  {
     @Setter
     private Role role;
 
-    @Pattern(regexp="^[a-zA-Z0-9._-]{3,}$", message="{validation.author.login.pattern}")
+  //  @Pattern(regexp="^[a-zA-Z0-9._-]{3,}$", message="{validation.author.login.pattern}")
     @Column(name="login")
     @Getter
     @Setter
     private String login;
 
-    @Pattern(regexp=".{8,}", message="{validation.author.password.pattern}")
+  //  @Pattern(regexp=".{8,}", message="{validation.author.password.pattern}")
     @Column(name="password")
     @Getter
     @Setter
@@ -97,16 +99,16 @@ public class Company  {
     @JsonIgnore
     private List<Ad> ads;
 
-    @Override
-    public String toString() {
-        return "Company{" +
-                "id=" + getId() +
-                ", name='" +getName() + '\'' +
-                ", description='" + description + '\'' +
-                ", address='" + address + '\'' +
-                ", ads=" + printSet(ads) +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Company{" +
+//                "id=" + getId() +
+//                ", name='" +getName() + '\'' +
+//                ", description='" + description + '\'' +
+//                ", address='" + address + '\'' +
+//                ", ads=" + printSet(ads) +
+//                '}';
+//    }
 
     private String printSet(List set){
         StringBuilder setString = new StringBuilder();

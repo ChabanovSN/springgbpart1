@@ -2,6 +2,7 @@ package ru.chabanov.spring.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.Fetch;
@@ -20,6 +21,7 @@ import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Table(name="app_category")
+@NoArgsConstructor
 public class Category  {
 
     @Getter

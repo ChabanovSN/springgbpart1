@@ -31,8 +31,9 @@ public class AuthorController {
     @RequestMapping(value="/registration", method=RequestMethod.GET)
     public String registrationForm(Model uiModel){
 
-        Company author = new Company();
-        uiModel.addAttribute("author", author);
+        Company company = new Company();
+        uiModel.addAttribute("company", company);
+
         return "security/registration";
     }
 
@@ -53,7 +54,7 @@ public class AuthorController {
 
         }
         authorService.save(author);
-        return "redirect:/";
+        return "home/main";
     }
 
 }

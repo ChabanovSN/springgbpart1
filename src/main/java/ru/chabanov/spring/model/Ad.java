@@ -2,6 +2,7 @@ package ru.chabanov.spring.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -17,6 +18,7 @@ import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Table(name="app_adv")
+@NoArgsConstructor
 public class Ad  {
 
     @Getter

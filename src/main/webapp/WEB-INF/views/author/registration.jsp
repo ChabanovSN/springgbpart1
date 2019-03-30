@@ -21,14 +21,10 @@
         <span class="error">${message}</span>
         <p/>
       </c:if>
-      <form:form modelAttribute="author" action="${contextPath}/registration" method='POST'>
-      
-        <p>${labelFirstName}: <form:input  path="firstname"  value="" placeholder="${labelFirstName}" /></p>
-                <form:errors path="firstname" cssClass="error" />
-        <p>${labelLastName}: <form:input  path="lastname"  value="" placeholder="${labelLastName}" /></p>
-                    <form:errors path="lastname" cssClass="error" />
-        <p>${labelAuthorEmail}: <form:input  path="email"  value="" placeholder="${labelAuthorEmail}" /></p>
-                     <form:errors path="email" cssClass="error" />
+      <form:form modelAttribute="company" action="${contextPath}/registration" method='POST'>
+          <%--<jsp:useBean id="company" class="ru.chabanov.spring.model.Company"/>--%>
+        <p>${labelLastName}: <form:input  path="name"  value="" placeholder="${labelLastName}" /></p>
+                    <form:errors path="name" cssClass="error" />
         <p>${labelLogin}: <form:input path="login"  type="text"  placeholder="${labelLogin}" /></p>
                   <form:errors path="login" cssClass="error" />
         <p>${labelPass}: <form:input path="password" type="password" placeholder="${labelPass}" /></p>
